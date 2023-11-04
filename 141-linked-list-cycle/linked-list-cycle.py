@@ -16,6 +16,5 @@ class Solution:
 
             if l == r:
                 return True
-        
         return
         

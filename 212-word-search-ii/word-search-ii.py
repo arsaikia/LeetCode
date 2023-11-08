@@ -30,23 +30,23 @@ class Solution:
             ):
                 return
 
-            nodeX = node[board[row][col]]
+            nextNode = node[board[row][col]]
 
             visited.add((row, col))
 
-            word = nodeX.pop("*", False)
-
-            if word:
-                finalWords.append(word)
+            if trie.endSymbol in nextNode:
+                finalWords.append(nextNode[trie.endSymbol])
+                del nextNode[trie.endSymbol]
             
-            explore(row + 1, col, nodeX)
-            explore(row - 1, col, nodeX)
-            explore(row, col + 1, nodeX)
-            explore(row, col - 1, nodeX)
+            explore(row + 1, col, nextNode)
+            explore(row - 1, col, nextNode)
+            explore(row, col + 1, nextNode)
+            explore(row, col - 1, nextNode)
 
             visited.remove((row, col))
 
-            if not nodeX:
+            # important to avoid TLE
+            if not nextNode:
                 node.pop(board[row][col])
 
 

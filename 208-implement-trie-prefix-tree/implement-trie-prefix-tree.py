@@ -19,9 +19,7 @@ class Trie:
             if char not in node:
                 return False
             node = node[char]
-        return self.endSymbol in node
-
-        
+        return self.endSymbol in node 
 
     def startsWith(self, prefix: str) -> bool:
         node = self.root
@@ -30,7 +28,6 @@ class Trie:
                 return False
             node = node[char]
         return True
-        
 
 
 # Your Trie object will be instantiated and called as such:

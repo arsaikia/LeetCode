@@ -4,18 +4,21 @@ class Solution:
         res = []
 
         def dfs(i, subStr, total):
+
+            # Base case: Positive: Out of bounds
             if i >= len(candidates) or total > target:
                 return
 
+            # Base case: Negative: nums add up to target
             if total == target:
                 res.append(subStr[:])
                 return
             
-            # include
+            # Include num in subset
             subStr.append(candidates[i])
             dfs(i, subStr, total + candidates[i])
 
-            # not include
+            # Do not include num in subset
             subStr.pop()
             dfs(i + 1, subStr, total)
 

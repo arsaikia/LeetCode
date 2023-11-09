@@ -18,11 +18,9 @@ class Solution:
 
         if not node.left and not node.right and targetSum == node.val:
             paths.append(currPath[:])
-            currPath.pop()
-            return
-            
-        self.getPaths(node.left, currPath, paths, targetSum - node.val)
-        self.getPaths(node.right, currPath, paths, targetSum - node.val)
+        else:
+            self.getPaths(node.left, currPath, paths, targetSum - node.val)
+            self.getPaths(node.right, currPath, paths, targetSum - node.val)
         
         currPath.pop()
         

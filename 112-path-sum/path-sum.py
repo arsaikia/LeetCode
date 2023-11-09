@@ -26,6 +26,5 @@ class Solution:
         
         self.getPathSum(node.left, pathSums, currPathSum)
         self.getPathSum(node.right, pathSums, currPathSum)
-        currPathSum -= node.val
 
         

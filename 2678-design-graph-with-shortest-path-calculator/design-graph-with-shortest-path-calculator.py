@@ -26,8 +26,8 @@ class Graph:
             if node == dst:
                 return cost
             
-            for c, nei in self.adjMap[node]:
-                heapq.heappush(minHeap, [cost + c, nei])
+            for neighborCost, neighbor in self.adjMap[node]:
+                heapq.heappush(minHeap, [cost + neighborCost, neighbor])
         
         return -1
 

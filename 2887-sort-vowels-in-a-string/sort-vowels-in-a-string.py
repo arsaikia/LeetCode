@@ -15,7 +15,5 @@ class Solution:
         
         for i in range(len(ind)):
             s[ind[i]]=chr(lis[i])
-                
-            
             
         return "".join(s)

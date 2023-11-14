@@ -10,6 +10,3 @@ class Solution:
             res = max(maxSubarrayProduct, res)
         
         return res
-
-
-        

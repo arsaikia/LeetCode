@@ -20,4 +20,5 @@ class Solution:
                 dp[(idx, isBuying)] = max(sell, cooldown)
             
             return dp[(idx, isBuying)]
+
         return getProfit(0, True)

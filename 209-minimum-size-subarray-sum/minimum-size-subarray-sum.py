@@ -3,7 +3,6 @@ class Solution:
         l, subarrayLength = 0, float("inf")
         runningSum = 0
 
-
         for r in range(len(nums)):
             # expand window
             runningSum += nums[r]

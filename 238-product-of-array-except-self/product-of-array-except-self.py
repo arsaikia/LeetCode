@@ -12,14 +12,9 @@ class Solution:
         runningMult = 1
         for idx in reversed(range(len(rightMult) - 1)):
             runningMult = nums[idx + 1] * runningMult
-            rightMult[idx] = runningMult
+            leftMult[idx] = runningMult * leftMult[idx]
         
-        res = [1 for __ in nums]
-
-        for idx in range(len(nums)):
-            res[idx] = leftMult[idx] * rightMult[idx]
-        
-        return res
+        return leftMult
 
 
         

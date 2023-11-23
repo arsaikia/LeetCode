@@ -3,11 +3,13 @@ class Solution:
         visited = collections.defaultdict(int)
         l = 0
         longest = 0
+        maxF = 0
 
         for r in range(len(s)):
             visited[s[r]] += 1
+            maxF = max(maxF, visited[s[r]])
 
-            while (r - l + 1) - max(visited.values()) > k:
+            if (r - l + 1) - maxF > k:
                 visited[s[l]] -= 1
                 l += 1
             longest = max(longest, (r - l + 1))

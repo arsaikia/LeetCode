@@ -9,8 +9,8 @@ class Solution:
             while l < r:
                 small, large = nums[l], nums[r]
                 if val + small + large == 0:
-                    if tuple(sorted([val, small, large])) not in triplets:
-                        triplets.add((val, small, large))
+                    triplets.add((val, small, large))
+                        
                     l += 1
                     r -= 1
                 elif val + small + large > 0:

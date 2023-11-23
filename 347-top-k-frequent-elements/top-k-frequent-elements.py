@@ -1,18 +1,25 @@
-import heapq
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
+        # bucket at idx x contains elements with frequency x
+        buckets = [[] for __  in range(len(nums) + 1)]
         charCounter = collections.Counter(nums)
-        minHeap = [(-val, key) for key, val in charCounter.items()]
-        heapq.heapify(minHeap)
 
-        res = []
-        while k:
-            val, key = heapq.heappop(minHeap)
-            res.append(key)
-            k -= 1
+        for idx, val in charCounter.items():
+            buckets[val].append(idx)
         
+        res = []
+        for idx in reversed(range(len(buckets))):
+            if not k:
+                break
+            bucket = buckets[idx]
+            
+            for num in bucket:
+                res.append(num)
+                k -= 1
+
         return res
+
 
 
         

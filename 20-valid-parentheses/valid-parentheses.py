@@ -1,8 +1,6 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-
         stack = []
-
 
         for bracket in s:
             if bracket == ")" and stack and stack[-1] == "(":

@@ -12,5 +12,3 @@ class Solution:
                     cache[row][col] = max(cache[row + 1][col], cache[row][col + 1])
         
         return cache[0][0]
-
-

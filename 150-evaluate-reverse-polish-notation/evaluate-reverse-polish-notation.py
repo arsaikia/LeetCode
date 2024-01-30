@@ -5,7 +5,6 @@ class Solution:
         stack = []
 
         for token in tokens:
-
             if token not in operations:
                 stack.append(int(token))
                 continue

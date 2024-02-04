@@ -11,8 +11,6 @@ class Solution:
         res, size = [-1, -1], float("inf")
         l = 0
 
-        
-
         for r in range(len(s)):
             if have == need and r - l + 1 < size:
                 res = [l, r]

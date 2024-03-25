@@ -1,25 +1,14 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
-
-        charsCount = collections.defaultdict(int)
+        sCount, tCount = [0] * 26, [0] * 26
 
         for char in s:
-            charsCount[ord(char)] += 1
+            idx = ord(char) - ord("a")
+            sCount[idx] += 1
         
         for char in t:
-            charCode = ord(char)
-            if charCode not in charsCount:
-                return False
-            
-            if charsCount[charCode] == 0:
-                return False
-            
-            if charsCount[charCode] == 1:
-               charsCount.pop(charCode)
-            else:
-                charsCount[charCode] -= 1
+            idx = ord(char) - ord("a")
+            tCount[idx] += 1
         
-        return len(charsCount) == 0
+        return sCount == tCount
         

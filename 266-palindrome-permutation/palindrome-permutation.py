@@ -1,12 +1,14 @@
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:
-        charCount = collections.defaultdict(int)
+
+        count = [0] * 26
         for char in s:
-            charCount[char] += 1
+            idx = ord(char) - ord("a")
+            count[idx] += 1
         
         isOddAllowed = len(s) % 2 == 1
 
-        for val in charCount.values():
+        for val in count:
             if val % 2 == 1:
                 if isOddAllowed:
                     isOddAllowed = False

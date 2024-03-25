@@ -1,6 +1,5 @@
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:
-
         count = [0] * 26
         for char in s:
             idx = ord(char) - ord("a")

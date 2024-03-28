@@ -1,13 +1,18 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagrams = collections.defaultdict(list)
+
+        wordAnarams = collections.defaultdict(list)
+        res = []
 
         for word in strs:
-            wordCode = [0 for __ in range(26)]
+            alphabets = [0] * 26
             for char in word:
-                charCode = ord(char) - ord("a")
-                wordCode[charCode] += 1
+                key = ord(char) - ord("a")
+                alphabets[key] += 1
             
-            anagrams[tuple(wordCode)].append(word)
+            wordAnarams[tuple(alphabets)].append(word)
         
-        return anagrams.values()
+        for words in wordAnarams.values():
+            res.append(words)
+        
+        return res

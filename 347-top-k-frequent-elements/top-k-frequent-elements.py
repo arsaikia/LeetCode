@@ -1,25 +1,16 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = collections.defaultdict(list)
 
-        # bucket at idx x contains elements with frequency x
-        buckets = [[] for __  in range(len(nums) + 1)]
-        charCounter = collections.Counter(nums)
-
-        for idx, val in charCounter.items():
-            buckets[val].append(idx)
+        counter = collections.Counter(nums)
+        for num, cnt in counter.items():
+            count[cnt].append(num)
         
         res = []
-        for idx in reversed(range(len(buckets))):
-            if not k:
-                break
-            bucket = buckets[idx]
-            
-            for num in bucket:
-                res.append(num)
-                k -= 1
 
+        for vals in reversed(sorted(count.keys())):
+            for val in count[vals]:
+                if k > 0:
+                    res.append(val)
+                    k -= 1
         return res
-
-
-
-        

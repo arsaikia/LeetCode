@@ -1,31 +1,20 @@
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
-        lastValidIdx = -1
-        firstValidIdx = -1
+        length = 0
 
-        idx = len(s) - 1
+        i = len(s) - 1
 
-        while idx >= 0:
-            if lastValidIdx != -1 and firstValidIdx != -1:
-                break
-            
-            char = s[idx]
-            
-            # set firstValidIdx
-            if lastValidIdx != -1 and char == " ":
-                firstValidIdx = idx
-
-            # set lastValidIdx
-            if char != " " and lastValidIdx == -1:
-                lastValidIdx = idx
-
-
-            idx -= 1
-
-        return (lastValidIdx - firstValidIdx)
-            
+        # move right pointer to left as long as we have empty string
+        # stops when we find a valid character
+        while i >= 0 and s[i] == " ":
+            i -= 1
         
+        # Now move i to left as long as char is not empty string
+        while i >= 0 and s[i] != " ":
+            i -= 1
+            length += 1
         
-            
+        return length
+        
 
         

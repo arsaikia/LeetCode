@@ -2,21 +2,26 @@ class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
+        
+        
 
-        maps = collections.defaultdict(str)
+        def modifiedString(s):
+            strList = []
+            seen = {}
+            for idx in range(len(s)):
+                char = s[idx]
+                if char not in seen:
+                    seen[char] = idx
+                strList.append(str(seen[char]))
+                strList.append(" ")
 
-        for i in range(len(s)):
-            sChar = s[i]
-            tChar = t[i]
+            return "".join(strList)
 
-            # Already mapped
-            if sChar in maps and maps[sChar] != tChar:
-                return False
-            
-            if sChar not in maps:
-                if tChar in maps.values():
-                    return False
-                
-                maps[sChar] = tChar
 
-        return True
+
+        
+        print(modifiedString(s))
+        print(modifiedString(t))
+
+        return modifiedString(s) == modifiedString(t)
+

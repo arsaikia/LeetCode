@@ -3,8 +3,6 @@ class Solution:
         if len(s) != len(t):
             return False
         
-        
-
         def modifiedString(s):
             strList = []
             seen = {}
@@ -16,12 +14,6 @@ class Solution:
                 strList.append(" ")
 
             return "".join(strList)
-
-
-
-        
-        print(modifiedString(s))
-        print(modifiedString(t))
 
         return modifiedString(s) == modifiedString(t)
 

@@ -7,7 +7,8 @@ class Solution:
             left, right = height[l], height[r]
             width = r - l
             hei = min(left, right)
-            maxArea = max(maxArea, width * hei)
+            area = width * hei
+            maxArea = max(maxArea, area)
 
             if left < right:
                 l += 1
@@ -15,5 +16,3 @@ class Solution:
                 r -= 1
         
         return maxArea
-
-        

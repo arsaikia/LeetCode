@@ -4,6 +4,13 @@ class Solution:
         triplets = set()
 
         for idx, num in enumerate(nums):
+            # Skip positive integers
+            if num > 0:
+                break
+
+            if idx > 0 and num == nums[idx - 1]:
+                continue
+
             l, r = idx + 1, len(nums) - 1
             while l < r:
                 left, right = nums[l], nums[r]

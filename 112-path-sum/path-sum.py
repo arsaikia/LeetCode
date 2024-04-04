@@ -7,15 +7,14 @@
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
 
-        def backtrack(node, pathSum):
+        def backtracking(node, targetSum, currSum):
             if not node:
                 return False
+            currSum += node.val
             
-            pathSum += node.val
             if not node.left and not node.right:
-                return pathSum == targetSum
+                return targetSum == currSum
             
-            return backtrack(node.left, pathSum) or backtrack(node.right, pathSum)
-        
-        return backtrack(root, 0)
-        
+            return backtracking(node.left, targetSum, currSum) or backtracking(node.right, targetSum, currSum)
+
+        return backtracking(root, targetSum, 0)

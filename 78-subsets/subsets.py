@@ -1,17 +1,23 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        subsets = []
-        self.backtrack(nums, 0, [], subsets)
-        return subsets
-    
-    def backtrack(self, nums, idx, subset, subsets):
-        if idx >= len(nums):
-            subsets.append(subset[:])
-            return
+        allSubsets = []
         
-        subset.append(nums[idx])
-        self.backtrack(nums, idx + 1, subset, subsets)
+        def backtracking(nums, currIdx, subset):
 
-        subset.pop()
-        self.backtrack(nums, idx + 1, subset, subsets)
+            if currIdx >= len(nums):
+                allSubsets.append(subset[:])
+                return
+            
+            # include currIdx element
+            subset.append(nums[currIdx])
+            backtracking(nums, currIdx + 1, subset)
+
+
+            # Do not include currIdx element
+            subset.pop()
+            backtracking(nums, currIdx + 1, subset)
+        
+        backtracking(nums, 0, [])
+
+        return allSubsets
         

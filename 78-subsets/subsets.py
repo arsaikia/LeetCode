@@ -1,23 +1,13 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        allSubsets = []
+        n = len(nums)
+        output = []
         
-        def backtracking(nums, currIdx, subset):
-
-            if currIdx >= len(nums):
-                allSubsets.append(subset[:])
-                return
+        for i in range(2**n, 2**(n + 1)):
+            # generate bitmask, from 0..00 to 1..11
+            bitmask = bin(i)[3:]
             
-            # include currIdx element
-            subset.append(nums[currIdx])
-            backtracking(nums, currIdx + 1, subset)
-
-
-            # Do not include currIdx element
-            subset.pop()
-            backtracking(nums, currIdx + 1, subset)
+            # append subset corresponding to that bitmask
+            output.append([nums[j] for j in range(n) if bitmask[j] == '1'])
         
-        backtracking(nums, 0, [])
-
-        return allSubsets
-        
+        return output

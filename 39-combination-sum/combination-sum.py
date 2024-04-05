@@ -1,26 +1,24 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        combinations = []
 
-        res = []
-
-        def dfs(i, subStr, total):
-
-            # Base case: Positive: Out of bounds
-            if i >= len(candidates) or total > target:
-                return
-
-            # Base case: Negative: nums add up to target
-            if total == target:
-                res.append(subStr[:])
+        def backtracking(idx, total, candidate):
+            if idx >= len(candidates) or total > target:
                 return
             
-            # Include num in subset
-            subStr.append(candidates[i])
-            dfs(i, subStr, total + candidates[i])
+            if total == target:
+                combinations.append(candidate[:])
+                return
+            
+            # consider current num
+            candidate.append(candidates[idx])
+            total += candidates[idx]
+            backtracking(idx, total, candidate)
 
-            # Do not include num in subset
-            subStr.pop()
-            dfs(i + 1, subStr, total)
-
-        dfs(0, [], 0)
-        return res
+            # skip current
+            candidate.pop()
+            total -= candidates[idx]
+            backtracking(idx + 1, total, candidate)
+        
+        backtracking(0, 0, [])
+        return combinations

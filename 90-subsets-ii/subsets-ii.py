@@ -3,7 +3,6 @@ class Solution:
         allSubsets = []
         nums.sort() # O(N log N)
 
-
         def backtracking(idx, subset):
             if idx >= len(nums):
                 allSubsets.append(subset[:])   # O(N)

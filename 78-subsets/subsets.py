@@ -4,20 +4,13 @@ class Solution:
         subset = []
         
         def backtrack(idx):
-            # if we have reached the end of list, we have used up all elements
-            # we can save the subset to output
-            if idx == len(nums):
-                subsets.append(subset[:])
-                return
+            subsets.append(subset[:])
 
-            # include element in current Idx
-            subset.append(nums[idx])
-            backtrack(idx + 1)
-
-            # do NOT iclude current element, try next one
-            subset.pop()
-            backtrack(idx + 1)
-        
+            for i in range(idx, len(nums)):
+                subset.append(nums[i])
+                backtrack(i + 1)
+                subset.pop()
+            
         backtrack(0)
 
         return subsets

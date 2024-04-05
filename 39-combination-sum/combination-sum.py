@@ -3,11 +3,12 @@ class Solution:
         combinations = []
 
         def backtracking(idx, total, candidate):
-            if idx >= len(candidates) or total > target:
-                return
-            
+
             if total == target:
                 combinations.append(candidate[:])
+                return
+
+            if idx >= len(candidates) or total > target:
                 return
             
             # consider current num

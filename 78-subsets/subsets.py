@@ -1,13 +1,23 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
-        output = []
+        subsets = []
+        subset = []
         
-        for i in range(2**n, 2**(n + 1)):
-            # generate bitmask, from 0..00 to 1..11
-            bitmask = bin(i)[3:]
-            
-            # append subset corresponding to that bitmask
-            output.append([nums[j] for j in range(n) if bitmask[j] == '1'])
+        def backtrack(idx):
+            # if we have reached the end of list, we have used up all elements
+            # we can save the subset to output
+            if idx == len(nums):
+                subsets.append(subset[:])
+                return
+
+            # include element in current Idx
+            subset.append(nums[idx])
+            backtrack(idx + 1)
+
+            # do NOT iclude current element, try next one
+            subset.pop()
+            backtrack(idx + 1)
         
-        return output
+        backtrack(0)
+
+        return subsets

@@ -1,22 +1,24 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        allSubsets = []
-        nums.sort() # O(N log N)
+        nums.sort()
 
-        def backtracking(idx, subset):
-            if idx >= len(nums):
-                allSubsets.append(subset[:])   # O(N)
-                return
+        subsets = []
+
+        def backtrack(idx, subset):
+            if idx == len(nums):
+                subsets.append(subset[:])
+                return 
             
-            # include current number
+            # consider curr elements
             subset.append(nums[idx])
-            backtracking(idx + 1, subset)
+            backtrack(idx + 1, subset)
 
-            # Do not include any number that is equal to curr
+            # do not consider any elements same as current
             subset.pop()
-            while idx < len(nums) - 1 and nums[idx + 1] == nums[idx]:
+            while idx + 1 < len(nums) and nums[idx] == nums[idx + 1]:
                 idx += 1
-            backtracking(idx + 1, subset)
+            backtrack(idx + 1, subset)
         
-        backtracking(0, [])
-        return allSubsets
+        backtrack(0, [])
+        return subsets
+        

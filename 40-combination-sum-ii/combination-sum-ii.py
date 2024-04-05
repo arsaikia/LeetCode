@@ -13,16 +13,16 @@ class Solution:
             # Out of bounds
             if idx >= len(candidates) or total > target:
                 return
-            
-            # Consider current element
-            combination.append(candidates[idx])
-            backtrack(idx + 1, total + candidates[idx], combination)
 
-            # Do not include any elements matching curr value
-            combination.pop()
-            while idx + 1 < len(candidates) and candidates[idx + 1] == candidates[idx]:
-                idx += 1
-            backtrack(idx + 1, total, combination)
+            for i in range(idx, len(candidates)):
+                if i > idx and candidates[i] == candidates[i-1]:
+                    continue
+                # Consider current element
+                combination.append(candidates[i])
+                backtrack(i + 1, total + candidates[i], combination)
+                # Do not include any elements matching curr value
+                combination.pop()
+
         
         backtrack(0, 0, [])
         return combinations

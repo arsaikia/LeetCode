@@ -1,29 +1,25 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        parts = []
-
-        def isPali(s, i, j):
-            while i < j:
-                if s[i] != s[j]:
-                    return False
-                i += 1
-                j -= 1
+        
+        current = []
+        ans = []
+        def backtracking(word, left, right):
             
-            return True
-
-        def backtracking(i, part):
-            if i >= len(s):
-                parts.append(part[:])
+            if left == len(word) or right>len(word) :
+                if len(''.join(current)) == len(word):
+                    ans.append(current.copy())
                 return
+
+            first = word[left:right]
+
+            if first == first[::-1] and len(first) >0:
+                current.append(first)
+                backtracking(word, right ,right+1 )
+                current.pop()
+
+            backtracking(word,left,  right + 1)
+        backtracking(s,0,0)
+        return ans
+        
+
             
-            for j in range(i, len(s)):
-                if isPali(s, i, j):
-                    part.append(s[i : j + 1])
-                    backtracking(j + 1, part)
-                    part.pop()
-        
-        backtracking(0, [])
-        return parts
-
-
-        

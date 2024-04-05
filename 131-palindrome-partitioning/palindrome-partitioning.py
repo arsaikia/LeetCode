@@ -3,22 +3,23 @@ class Solution:
         
         current = []
         ans = []
-        def backtracking(word, left, right):
-            
-            if left == len(word) or right>len(word) :
-                if len(''.join(current)) == len(word):
-                    ans.append(current.copy())
+
+        def backtracking(i, j):
+            if i == len(s) or j > len(s) :
+                if len(''.join(current)) == len(s):
+                    ans.append(current[:])
                 return
 
-            first = word[left:right]
+            substr = s[i:j]
 
-            if first == first[::-1] and len(first) >0:
-                current.append(first)
-                backtracking(word, right ,right+1 )
+            if substr == substr[::-1] and len(substr) > 0:
+                current.append(substr)
+                backtracking(j, j + 1)
                 current.pop()
 
-            backtracking(word,left,  right + 1)
-        backtracking(s,0,0)
+            backtracking(i,  j + 1)
+
+        backtracking(0,0)
         return ans
         
 

@@ -1,20 +1,14 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
+        prefixes = [1] * len(nums)
 
-        leftMult = [1 for __ in nums]
-        rightMult = [1 for __ in nums]
-
-        runningMult = 1
-        for idx in range(1, len(leftMult)):
-            runningMult = nums[idx - 1] * runningMult
-            leftMult[idx] = runningMult
+        for i in range(1, len(nums)):
+            prefixes[i] = prefixes[i - 1] * nums[i - 1]
         
-        runningMult = 1
-        for idx in reversed(range(len(rightMult) - 1)):
-            runningMult = nums[idx + 1] * runningMult
-            leftMult[idx] = runningMult * leftMult[idx]
-        
-        return leftMult
+        postfixMultiplier = 1
 
-
+        for idx in reversed(range(len(nums))):
+            prefixes[idx] = postfixMultiplier * prefixes[idx]
+            postfixMultiplier *= nums[idx]
         
+        return prefixes

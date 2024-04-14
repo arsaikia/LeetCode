@@ -5,22 +5,20 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-
     def __init__(self, res=0):
         self.res = res
     
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
         def binary(node, isLeft):
+            if not node:
+                return 0
+
             if node.left is None and node.right is None and isLeft:
-                self.res += node.val
-            
-            if node.left:
-                binary(node.left, True)
-            
-            if node.right:
-                binary(node.right, False)
+                return node.val
+
+            return binary(node.left, True) + binary(node.right, False)
+
         
-        binary(root, False)
-        return self.res
+        return binary(root, False)
 
         

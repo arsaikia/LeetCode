@@ -10,8 +10,8 @@ class Solution:
             if not node:
                 return 0
 
-            if node.left is None and node.right is None and isLeft:
-                return node.val
+            if not node.left and not node.right:
+                return node.val if isLeft else 0
 
             return binary(node.left, True) + binary(node.right, False)
         

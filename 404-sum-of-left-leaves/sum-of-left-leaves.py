@@ -17,7 +17,6 @@ class Solution:
                 return node.val
 
             return binary(node.left, True) + binary(node.right, False)
-
         
         return binary(root, False)
 

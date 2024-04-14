@@ -5,9 +5,6 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self, res=0):
-        self.res = res
-    
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
         def binary(node, isLeft):
             if not node:

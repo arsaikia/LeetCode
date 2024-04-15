@@ -1,17 +1,19 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        visited = collections.defaultdict(int)
-        l = 0
-        longest = 0
-        maxF = 0
+        windowChars = collections.defaultdict(int)
+        l, res = 0, 0
 
         for r in range(len(s)):
-            visited[s[r]] += 1
-            maxF = max(maxF, visited[s[r]])
 
-            if (r - l + 1) - maxF > k:
-                visited[s[l]] -= 1
+            windowChars[s[r]] += 1
+
+            # close window if > k after replacing chars
+            while (r - l + 1) - max(windowChars.values()) > k:
+                windowChars[s[l]] -= 1
                 l += 1
-            longest = max(longest, (r - l + 1))
+            
+            res = max(res, r - l + 1)
         
-        return longest
+        return res
+
+        

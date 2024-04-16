@@ -1,15 +1,19 @@
 class Solution:
     def maxFrequency(self, nums: List[int], k: int) -> int:
         nums.sort()
-        left = 0
-        curr = 0
+        l = 0
+        sum = 0
+        res = 0
         
-        for right in range(len(nums)):
-            target = nums[right]
-            curr += target
-            
-            if (right - left + 1) * target - curr > k:
-                curr -= nums[left]
-                left += 1
+        for r in range(len(nums)):
+            sum += nums[r]
 
-        return len(nums) - left
+            while (r - l + 1) * nums[r] - sum > k:
+                sum -= nums[l]
+                l += 1
+            
+            if (r - l + 1) * nums[r] - sum <= k:
+                res = max(res, (r - l + 1))
+        
+        return res
+        

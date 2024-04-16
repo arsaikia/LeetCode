@@ -7,7 +7,7 @@
 class Solution:
     def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
 
-        def dfs(node, currDepth, val, isLeft):
+        def dfs(node, currDepth, val):
             if not node:
                 return
 
@@ -19,8 +19,8 @@ class Solution:
                 node.right = newNode
             
             
-            dfs(node.left, currDepth + 1, val, True)
-            dfs(node.right, currDepth + 1, val, False)
+            dfs(node.left, currDepth + 1, val)
+            dfs(node.right, currDepth + 1, val)
         
         # base case
         if depth == 1:
@@ -28,5 +28,5 @@ class Solution:
             newNode.left = root
             return newNode
 
-        dfs(root, 1, val, 0)
+        dfs(root, 1, val)
         return root

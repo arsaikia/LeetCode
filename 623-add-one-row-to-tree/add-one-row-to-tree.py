@@ -17,6 +17,7 @@ class Solution:
                 node.left = newNode
                 newNode = TreeNode(val, None, nextRight)
                 node.right = newNode
+                return
             
             
             dfs(node.left, currDepth + 1, val)

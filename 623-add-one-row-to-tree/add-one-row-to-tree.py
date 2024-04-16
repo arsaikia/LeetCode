@@ -7,27 +7,40 @@
 class Solution:
     def addOneRow(self, root: Optional[TreeNode], val: int, depth: int) -> Optional[TreeNode]:
 
-        def dfs(node, currDepth, val):
-            if not node:
-                return
-
-            if currDepth == depth - 1:
-                nextLeft, nextRight = node.left, node.right
-                newNode = TreeNode(val, nextLeft, None)
-                node.left = newNode
-                newNode = TreeNode(val, None, nextRight)
-                node.right = newNode
-                return
-            
-            
-            dfs(node.left, currDepth + 1, val)
-            dfs(node.right, currDepth + 1, val)
-        
-        # base case
         if depth == 1:
-            newNode = TreeNode(val)
-            newNode.left = root
-            return newNode
+            newRoot = TreeNode(val)
+            newRoot.left = root
+            return newRoot
 
-        dfs(root, 1, val)
+        q = collections.deque([root])
+
+        while depth > 2:
+            for i in range(len(q)):
+                node = q.popleft()
+                if not node:
+                    continue
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            depth -= 1
+        
+        for __ in range(len(q)):
+            curr = q.popleft()
+            left = curr.left
+            right = curr.right
+            nextNode = TreeNode(val)
+            
+            new1 = TreeNode(val)
+            new2 = TreeNode(val)
+
+            curr.left = new1
+            new1.left = left
+
+            curr.right = new2
+            new2.right = right
+
         return root
+        
+        return root
+

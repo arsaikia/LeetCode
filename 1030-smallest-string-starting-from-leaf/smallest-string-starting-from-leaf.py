@@ -29,15 +29,6 @@ class Solution:
             curr = allStrs[i]
             if curr < smallest:
                 smallest = curr
-
-            # for j in range(min(len(curr), len(smallest))):
-            #     chSmall, chCurr = smallest[j], curr[j]
-            #     if chCurr < chSmall:
-            #         smallest = curr
-            #         break
-                
-            #     if chCurr == chSmall and j == min(len(curr), len(smallest)) - 1 and len(curr) < len(smallest):
-            #         smallest = curr
         
         for i in range(len(smallest)):
             smallest[i] = chr(ord("a") + smallest[i])

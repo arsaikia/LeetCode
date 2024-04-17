@@ -3,14 +3,12 @@ class Solution:
         allSubsets = []
         
         def backtrack(idx, running):
-            if idx == len(nums):
-                allSubsets.append(running[:])
-                return
+            allSubsets.append(running[:])
             
-            running.append(nums[idx])
-            backtrack(idx + 1, running)
-            running.pop()
-            backtrack(idx + 1, running)
-        
+            for i in range(idx, len(nums)):
+                running.append(nums[i])
+                backtrack(i + 1, running)
+                running.pop()
+            
         backtrack(0, [])
         return allSubsets

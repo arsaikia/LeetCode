@@ -2,24 +2,20 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         combinations = []
 
-        def backtracking(idx, total, candidate):
 
+        def backtrack(idx, combination, total):
             if total == target:
-                combinations.append(candidate[:])
+                combinations.append(combination[:])
                 return
 
             if idx >= len(candidates) or total > target:
                 return
             
-            # consider current num
-            candidate.append(candidates[idx])
-            total += candidates[idx]
-            backtracking(idx, total, candidate)
+            combination.append(candidates[idx])
+            backtrack(idx, combination, total + candidates[idx])
 
-            # skip current
-            candidate.pop()
-            total -= candidates[idx]
-            backtracking(idx + 1, total, candidate)
+            combination.pop()
+            backtrack(idx + 1, combination, total)
         
-        backtracking(0, 0, [])
+        backtrack(0, [], 0)
         return combinations

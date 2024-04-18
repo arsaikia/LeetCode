@@ -2,7 +2,6 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
 
         def isPali(s, i, j):
-            print(i, j, s[i:j])
             while i < j and j < len(s):
                 if s[i] != s[j]:
                     return False
@@ -19,14 +18,14 @@ class Solution:
                     ans.append(current[:])
                 return
 
-            if isPali(s, i, j - 1) and j - i > 0:
+            if isPali(s, i, j - 1) and i < j:
                 current.append(s[i:j])
                 backtracking(j, j + 1)
                 current.pop()
 
             backtracking(i,  j + 1)
 
-        backtracking(0,0)
+        backtracking(0, 1)
         return ans
         
 

@@ -4,12 +4,7 @@ class Solution:
             if len(curr) == n:
                 if curr not in nums:
                     return curr
-                
-                return ""
-            
-            # add_zero = generate(curr + "0")
-            # if add_zero:
-            #     return add_zero
+                return None
 
             return generate(curr + "1") or generate(curr + "0")
 

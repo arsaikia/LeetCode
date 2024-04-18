@@ -24,9 +24,9 @@ class Solution:
         
         visited.add((row, col))
 
+        perimeter = 0
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        for dr, dc in directions:
+            perimeter += self.traverseIslandAndCalculatePerimeter(row + dr, col + dc, ROWS, COLS, visited, grid)
         
-        
-        return self.traverseIslandAndCalculatePerimeter(row + 1, col, ROWS, COLS, visited, grid) + \
-        self.traverseIslandAndCalculatePerimeter(row - 1, col, ROWS, COLS, visited, grid) + \
-        self.traverseIslandAndCalculatePerimeter(row, col + 1, ROWS, COLS, visited, grid) + \
-        self.traverseIslandAndCalculatePerimeter(row, col - 1, ROWS, COLS, visited, grid)
+        return perimeter

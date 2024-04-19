@@ -4,7 +4,6 @@ class Solution:
 
         def backtrack(i, nums):
             if i == len(s) and len(nums) > 1:
-                print(nums)
                 return True
             
             for j in range(i, len(s)):

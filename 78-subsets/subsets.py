@@ -1,15 +1,16 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
+
         allSubsets = []
-        running = []
-        
-        def backtrack(idx):
-            allSubsets.append(running[:])
+
+        def backtrack(idx, subset):
+            allSubsets.append(subset[:])
             
             for i in range(idx, len(nums)):
-                running.append(nums[i])
-                backtrack(i + 1)
-                running.pop()
+                subset.append(nums[i])
+                backtrack(i + 1, subset)
+                subset.pop()
             
-        backtrack(0)
+        backtrack(0, [])
         return allSubsets
+        

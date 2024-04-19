@@ -12,9 +12,6 @@ class Solution:
                 if counts[num] == 0:
                     continue
                 
-                if num in perms:
-                    continue
-                
                 perm.append(num)
                 counts[num] -= 1
                 backtrack(perm)

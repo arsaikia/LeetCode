@@ -3,13 +3,16 @@ class Solution:
 
         allSubsets = []
 
-        def backtrack(idx, subset):
-            allSubsets.append(subset[:])
+        def backtrack(i, subset):
+
+            if i >= len(nums):
+                allSubsets.append(subset[:])
+                return
             
-            for i in range(idx, len(nums)):
-                subset.append(nums[i])
-                backtrack(i + 1, subset)
-                subset.pop()
+            subset.append(nums[i])
+            backtrack(i + 1, subset)
+            subset.pop()
+            backtrack(i + 1, subset)
             
         backtrack(0, [])
         return allSubsets

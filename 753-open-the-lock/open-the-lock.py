@@ -22,6 +22,7 @@ class Solution:
         visited = set()
         minSteps = 0
 
+        # Perform BFS from staring node to get the target
         q = collections.deque(["0000"])
 
         while q:

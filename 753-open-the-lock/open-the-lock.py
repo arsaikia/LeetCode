@@ -3,8 +3,6 @@ class Solution:
 
         def findNext(node):
             direction = []
-            curr = int(node)
-            res = []
             for i in range(len(node)):
                 prev = node[ : i]
                 curr = node[i]
@@ -20,8 +18,7 @@ class Solution:
                     direction.append(prev + str(int(curr) - 1) + nxt)
             return direction
 
-        # print(findNext("1090"))
-        walls = set(deadends)
+        deadends = set(deadends)
         visited = set()
         minSteps = 0
 
@@ -33,16 +30,14 @@ class Solution:
                 if curr == target:
                     return minSteps
                 
-                if curr in walls or curr in visited:
+                if curr in deadends or curr in visited:
                     continue
                 
                 visited.add(curr)
 
                 for nextNode in findNext(curr):
-                    if nextNode in walls:
-                        continue
-                    
                     q.append(nextNode)
+    
             minSteps += 1
             
         return -1

@@ -13,11 +13,11 @@ class Solution:
             
             currSum = (10 * sum) + node.val
 
-            leftSum = dfs(node.left, currSum)
-            rightSum = dfs(node.right, currSum)
-
             if not node.left and not node.right:
                 return currSum
+
+            leftSum = dfs(node.left, currSum)
+            rightSum = dfs(node.right, currSum)
 
             return leftSum + rightSum
         

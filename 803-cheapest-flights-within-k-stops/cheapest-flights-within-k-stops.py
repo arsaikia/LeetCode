@@ -7,19 +7,19 @@ class Solution:
         
         cost = [float("inf") for _ in range(n)]
 
-        minHeap = collections.deque([[0, src]])
+        q = collections.deque([[0, src]])
 
         for __ in range(k + 1):
-            if not minHeap:
+            if not q:
                 break
 
-            for __ in range(len(minHeap)):
-                currPrice, currNode = minHeap.popleft()
+            for __ in range(len(q)):
+                currPrice, currNode = q.popleft()
                 
                 for nextNode, nextPrice in adjMap[currNode]:
                     if currPrice + nextPrice < cost[nextNode]:
                         cost[nextNode] = currPrice + nextPrice
-                        minHeap.append([currPrice + nextPrice, nextNode])    
+                        q.append([currPrice + nextPrice, nextNode])    
         
         return cost[dst] if cost[dst] != float("inf") else -1
             

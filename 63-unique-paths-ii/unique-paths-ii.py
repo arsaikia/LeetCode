@@ -1,29 +1,31 @@
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         ROWS, COLS = len(obstacleGrid), len(obstacleGrid[0])
-        cache = obstacleGrid[::]
-        for r in range(ROWS):
-            for c in range(COLS):
-                if cache[r][c] == 1:
-                    cache[r][c] = -1
+        paths = [[0 for col in range(len(obstacleGrid[0]))] for row in range(len(obstacleGrid))]
 
-        def traverse(grid, row, col, ROWS, COLS, ways):
-            # Nagative base case
-            if row == ROWS or col == COLS or grid[row][col] == -1:
+        for r in range(len(obstacleGrid)):
+            for c in range(len(obstacleGrid[0])):
+                if obstacleGrid[r][c] == 1:
+                    obstacleGrid[r][c] = - 1
+                
+
+        def getPath(row, col):
+            if row not in range(ROWS) or col not in range(COLS) or obstacleGrid[row][col] == -1:
                 return 0
-            
+
             if row == ROWS - 1 and col == COLS - 1:
                 return 1
             
-            if ways[row][col] > 0:
-                return ways[row][col]
+            if paths[row][col]:
+                return paths[row][col]
             
-            ways[row][col] = (
-                traverse(grid, row + 1, col, ROWS, COLS, ways) + 
-                traverse(grid, row, col + 1, ROWS, COLS, ways))
-            
-            return ways[row][col]
+            down, right = getPath(row + 1, col), getPath(row, col + 1)
 
-        return traverse(obstacleGrid, 0, 0, ROWS, COLS, cache)
+            paths[row][col] = down + right
+            return paths[row][col]
+        
+        return getPath(0, 0)
+            
+
 
         

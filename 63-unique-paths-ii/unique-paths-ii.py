@@ -1,7 +1,7 @@
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         ROWS, COLS = len(obstacleGrid), len(obstacleGrid[0])
-        paths = [[0 for col in range(len(obstacleGrid[0]))] for row in range(len(obstacleGrid))]
+        paths = [[-1 for col in range(len(obstacleGrid[0]))] for row in range(len(obstacleGrid))]
 
         for r in range(len(obstacleGrid)):
             for c in range(len(obstacleGrid[0])):
@@ -15,7 +15,7 @@ class Solution:
             if row == ROWS - 1 and col == COLS - 1:
                 return 1
             
-            if paths[row][col]:
+            if paths[row][col] != -1:
                 return paths[row][col]
             
             down, right = getPath(row + 1, col), getPath(row, col + 1)

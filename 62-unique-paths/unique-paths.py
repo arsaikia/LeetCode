@@ -1,22 +1,26 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
         ROWS, COLS = m, n
-        ways = [ [0 for col in range(COLS)] for row in range(ROWS) ]
-        ways[-1][-1] = 1
+        memo = {}
 
-        def traverse(row, col, ROWS, COLS, ways):
-            # Nagative base case
-            if row == ROWS or col == COLS:
+        def findPaths(row, col):
+            nonlocal ROWS, COLS
+
+            if (row, col) in memo:
+                return memo[(row, col)]
+
+            if row not in range(ROWS) or col not in range(COLS):
                 return 0
             
-            if ways[row][col] > 0:
-                return ways[row][col]
+            if row == ROWS - 1 and col == COLS - 1:
+                return 1
             
-            ways[row][col] = (
-                traverse(row + 1, col, ROWS, COLS, ways) + 
-                traverse(row, col + 1, ROWS, COLS, ways))
+            down = findPaths(row + 1, col)
+            right = findPaths(row, col + 1)
             
-            return ways[row][col]
+            memo[(row, col)] = right + down
 
-        return traverse(0, 0, ROWS, COLS, ways)
-
+            return memo[(row, col)]
+        
+        return findPaths(0, 0)
+        

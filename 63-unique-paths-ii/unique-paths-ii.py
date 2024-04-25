@@ -8,7 +8,6 @@ class Solution:
                 if obstacleGrid[r][c] == 1:
                     obstacleGrid[r][c] = - 1
                 
-        @cache
         def getPath(row, col):
             if row not in range(ROWS) or col not in range(COLS) or obstacleGrid[row][col] == -1:
                 return 0

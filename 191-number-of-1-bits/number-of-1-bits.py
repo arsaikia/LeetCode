@@ -1,7 +1,10 @@
 class Solution:
     def hammingWeight(self, n: int) -> int:
-        res = 0
+        bits = 0
         while n:
-            n &= n - 1
-            res += 1
-        return res
+            if n % 2:
+                bits += 1
+            n = n >> 1
+        
+        return bits
+        

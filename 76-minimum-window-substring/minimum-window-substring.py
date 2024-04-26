@@ -2,18 +2,17 @@ class Solution:
     def minWindow(self, s: str, t: str) -> str:
         if len(t) > len(s) or t == "":
             return ""
-        
-        charsInS, charsInT = collections.defaultdict(int), collections.defaultdict(int)
-        for ch in t:
-            charsInT[ch] += 1
+            
+        charsInT, charsInS = collections.Counter(t), collections.defaultdict(int)
 
-        have, need = 0, len(charsInT)
-        res, size = [-1, -1], float("inf")
         l = 0
+        have, need = 0, len(charsInT)
+        longest, res = float("inf"), [-1, -1]
 
         for r in range(len(s)):
-            if have == need and r - l + 1 < size:
+            if have == need and r - l + 1 < longest:
                 res = [l, r]
+                longest = r - l + 1
             
             # open window
             if s[r] in charsInT:
@@ -23,19 +22,21 @@ class Solution:
             
             # close window
             while have == need:
-                if r - l + 1 < size:
-                    size = r - l + 1
-                    res = [l, r]
+                if r - l + 1 < longest:
+                    res = [l , r]
+                    longest = r - l + 1
                 
-                # close from l
                 if s[l] in charsInT:
                     charsInS[s[l]] -= 1
+
                     if charsInS[s[l]] + 1 == charsInT[s[l]]:
                         have -= 1
+                
                 l += 1
-        l, r = res
-        return s[l : r + 1] if size != float("inf") else ""
-
         
+        l, r = res
+        return s[l : r + 1] if longest != float("inf") else ""
+
+
 
         

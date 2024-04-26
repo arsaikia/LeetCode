@@ -32,8 +32,5 @@ class Solution:
                 merged = self.mergeTwoSortedLists(l1, l2)
                 mergedLists.append(merged)
             lists = mergedLists
-        
+
         return lists[0]
-
-
-        

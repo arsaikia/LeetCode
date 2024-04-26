@@ -10,9 +10,6 @@ class Solution:
         longest, res = float("inf"), [-1, -1]
 
         for r in range(len(s)):
-            # if have == need and r - l + 1 < longest:
-            #     res = [l, r]
-            #     longest = r - l + 1
             
             # open window
             if s[r] in charsInT:

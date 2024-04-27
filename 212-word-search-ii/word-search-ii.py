@@ -40,6 +40,7 @@ class Solution:
                 node.pop(board[row][col])
         
         trie = Trie(words)
+        print(trie.root)
         for r in range(ROWS):
             for c in range(COLS):
                 find(r, c, visited, trie.root)

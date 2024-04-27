@@ -2,6 +2,8 @@ class Trie:
     def __init__(self, words):
         self.root = {}
         self.endSymbol = "*"
+        for word in words:
+            self.insert(word)
         
     def insert(self, word):
         node = self.root
@@ -13,46 +15,36 @@ class Trie:
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        trie = Trie(words)
-        for word in words:
-            trie.insert(word)
+        ROWS, COLS, visited = len(board), len(board[0]), set() 
+        res = []
 
-        finalWords = []
-        visited = set()
-        ROWS, COLS = len(board), len(board[0])
-
-        def explore(row, col, node):
-            if (
-                row not in range(ROWS) or
-                col not in range(COLS) or
-                (row, col) in visited or
-                board[row][col] not in node
-            ):
+        def find(row, col, visited, node):
+            nonlocal ROWS, COLS
+            if row not in range(ROWS) or col not in range(COLS) or (row, col) in visited or board[row][col] not in node:
                 return
-
+            
+            visited.add((row, col))
             nextNode = node[board[row][col]]
 
-            visited.add((row, col))
-
-            if trie.endSymbol in nextNode:
-                finalWords.append(nextNode[trie.endSymbol])
-                del nextNode[trie.endSymbol]
+            if "*" in nextNode:
+                res.append(nextNode["*"])
+                del nextNode["*"]
             
-            explore(row + 1, col, nextNode)
-            explore(row - 1, col, nextNode)
-            explore(row, col + 1, nextNode)
-            explore(row, col - 1, nextNode)
-
+            find(row + 1, col, visited, nextNode)
+            find(row - 1, col, visited, nextNode)
+            find(row, col + 1, visited, nextNode)
+            find(row, col - 1, visited, nextNode)
             visited.remove((row, col))
 
-            # important to avoid TLE
             if not nextNode:
                 node.pop(board[row][col])
+        
+        trie = Trie(words)
+        for r in range(ROWS):
+            for c in range(COLS):
+                find(r, c, visited, trie.root)
+        return res
 
 
-        for row in range(ROWS):
-            for col in range(COLS):
-                explore(row, col, trie.root)
-
-        return finalWords
+            
         

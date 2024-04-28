@@ -1,28 +1,20 @@
 class Solution:
-    def canHaveValidDoubleDigitsChar(self, idx, string):
-            idxInBounds = idx + 1 < len(string)
-            if not idxInBounds:
-                return False
-
-            startsWithOne = string[idx] == "1"
-            startsWithTwoAndHasValidSecondDigits = string[idx] == "2" and string[idx + 1] in "0123456"
-            if startsWithOne or startsWithTwoAndHasValidSecondDigits:
-                return True
-            return False
-    
     def numDecodings(self, s: str) -> int:
-        self.ways = { len(s) : 1 }   
+        dp = {len(s) : 1}
         
-        for idx in reversed(range(len(s))):
-            if s[idx] == "0":
-                self.ways[idx] = 0
-            else:
-                self.ways[idx] = self.ways[idx + 1]
+        def backtrack(i):
+            if i in dp:
+                return dp[i]
 
-                if self.canHaveValidDoubleDigitsChar(idx, s):
-                    self.ways[idx] += self.ways[idx + 2]
-        
-        return self.ways[0]
+            if s[i] == "0":
+                return 0
             
+            res = backtrack(i + 1)
 
-        
+            # take two
+            if i + 1 < len(s) and int(s[i:i+2]) <= 26:
+                res += backtrack(i + 2)
+            
+            dp[i] = res
+            return dp[i]        
+        return backtrack(0)

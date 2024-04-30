@@ -1,16 +1,13 @@
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
 
-        dp = {}
-        def backtrack(i):
-            if i >= len(cost):
-                return 0
-            
-            if i in dp:
-                return dp[i]
-            
-            dp[i] = cost[i] + min(backtrack(i + 1), backtrack(i + 2))
-            return dp[i]
+        dp = [0 for i in range(len(cost))]
+        dp[-1] = cost[-1]
+        dp[-2] = cost[-2]
+
+        for idx in reversed(range(len(cost) - 2)):
+            dp[idx] = cost[idx] + min(dp[idx + 1], dp[idx + 2])
         
-        return min(backtrack(0), backtrack(1))
+        return min(dp[0], dp[1])
+
         

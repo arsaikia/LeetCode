@@ -13,10 +13,8 @@ class Solution:
             maxRain += leftRain + rightRain
 
             if height[l] > height[r]:
-                
                 r -= 1
             else:
-                
                 l += 1
         
         return maxRain

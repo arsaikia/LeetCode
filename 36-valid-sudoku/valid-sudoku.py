@@ -1,25 +1,29 @@
+from collections import defaultdict
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         EMPTY_CELL = "."
-        visitedRows = collections.defaultdict(set) # { rowsIdx }
-        visitedCols = collections.defaultdict(set) # { rowsIdx }
-        visitedGrids = collections.defaultdict(set) # { (rowsIdx // 3, ColsIdx // 3) }
+        visitedRows = defaultdict(set)  # {rowIdx : set() }
+        visitedCols = defaultdict(set)  # {colIdx : set() }
+        visitedGrids = defaultdict(set) # {(rowsIdx, colIdx) : set() }
 
         for row in range(len(board)):
             for col in range(len(board[0])):
-                value = board[row][col]
-                if value == EMPTY_CELL:
+                val = board[row][col]
+
+                if val == EMPTY_CELL:
                     continue
                 
-                if value in visitedRows[row]:
+                if (
+                    val in visitedRows[row] or
+                    val in visitedCols[col] or
+                    val in visitedGrids[(row // 3, col // 3)]
+                ):
                     return False
-                if value in visitedCols[col]:
-                    return False
-                if value in visitedGrids[(row // 3, col // 3)]:
-                    return False
-                
-                visitedRows[row].add(value)
-                visitedCols[col].add(value)
-                visitedGrids[(row//3,col//3)].add(value)
+
+                visitedRows[row].add(val)
+                visitedCols[col].add(val)
+                visitedGrids[(row // 3, col // 3)].add(val)
         
         return True
+
+        

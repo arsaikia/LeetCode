@@ -1,26 +1,23 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        leftMax, rightMax = 0, 0
+        lMax, rMax = 0, 0
         l, r = 0, len(height) - 1
-        area = 0
+        maxRain = 0
 
         while l < r:
-            left, right = height[l], height[r]
-            minHeight = min(leftMax, rightMax)
+            lMax = max(lMax, height[l])
+            rMax = max(rMax, height[r])
+            trapHeight = min(lMax, rMax)
+            leftRain = trapHeight - height[l] if trapHeight - height[l] > 0 else 0
+            rightRain = trapHeight - height[r] if trapHeight - height[r] > 0 else 0
+            maxRain += leftRain + rightRain
 
-            leftArea = minHeight - left if minHeight - left > 0 else 0
-            rightArea = minHeight - right if minHeight - right > 0 else 0
-
-            area = area + leftArea + rightArea
-
-            leftMax = max(leftMax, left)
-            rightMax = max(rightMax, right)
-
-            if left < right:
-                l += 1
-            else:
+            if height[l] > height[r]:
+                
                 r -= 1
+            else:
+                
+                l += 1
         
-        return area
-
+        return maxRain
 

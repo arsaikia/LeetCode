@@ -5,11 +5,12 @@ class Solution:
         l, r = 0, len(nums) - 1
 
         while l <= r:
-            if nums[l] ** 2 > nums[r] ** 2:
-                res.appendleft(nums[l] ** 2)
+            left, right = nums[l] ** 2, nums[r] ** 2
+            if left > right:
+                res.appendleft(left)
                 l += 1
             else:
-                res.appendleft(nums[r] ** 2)
+                res.appendleft(right)
                 r -= 1
         
         return res

@@ -1,25 +1,30 @@
 class Solution:
-    def checkPalindrome(self, st, left, right):
-        while left > -1 and right < len(st) and st[left] == st[right]:
-            left -= 1
-            right += 1
-        return [left + 1, right]
-
     def longestPalindrome(self, s: str) -> str:
-        longest = float("-inf")
-        idx = [-1, -1]
-        
+        longest = 0
+        res = [-1, -1]
+
         for i in range(len(s)):
-            l, r = self.checkPalindrome(s, i, i)
-            if r - l > longest:
-                longest = r - l
-                idx = [l, r]
-            
-            l, r = self.checkPalindrome(s, i, i + 1)
-            if r - l > longest:
-                longest = r - l
-                idx = [l, r]
+
+            # odd pali
+            l, r = i, i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if r - l + 1 > longest:
+                    longest = r - l + 1
+                    res = [l, r]
+                l -= 1
+                r += 1
+
+
+            # even pali
+            l, r = i, i + 1
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if r - l + 1 > longest:
+                    longest = r - l + 1
+                    res = [l, r]
+                l -= 1
+                r += 1
         
-        return s[idx[0] : idx[1]]     
+        l, r = res
+        return s[l : r + 1] if longest else ""
 
-
+        

@@ -1,12 +1,18 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        maxProduct = 1
+        minProduct = 1
         res = nums[0]
-        maxSubarrayProduct, minSubarrayProduct = 1, 1
+
 
         for num in nums:
-            currMax = maxSubarrayProduct
-            maxSubarrayProduct = max( (maxSubarrayProduct * num), (minSubarrayProduct * num), num )
-            minSubarrayProduct = min( (currMax * num), (minSubarrayProduct * num), num)
-            res = max(maxSubarrayProduct, res)
+            currMax = maxProduct * num
+            currMin = minProduct * num
+
+            maxProduct = max(num, currMax, currMin)
+            minProduct = min(num, currMax, currMin)
+
+            res = max(res, maxProduct)
         
         return res
+        

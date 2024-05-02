@@ -6,12 +6,11 @@ class Solution:
         heapq.heapify(minHeap)
         heapq.heapify(maxHeap)
         while minHeap and maxHeap:
-            minVal, maxVal = minHeap[0], -1 * maxHeap[0]
+            minVal, maxVal = -1 * minHeap[0], -1 * maxHeap[0]
 
-
-            if -1 * minVal == maxVal:
+            if minVal == maxVal:
                 return maxVal
-            elif -1 * minVal > maxVal:
+            elif minVal > maxVal:
                 heapq.heappop(minHeap)
             else:
                 heapq.heappop(maxHeap)

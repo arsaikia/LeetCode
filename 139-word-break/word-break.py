@@ -1,18 +1,22 @@
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        dp = [False for i in range(len(s) + 1)]
+    def wordBreak(self, s: str, words: List[str]) -> bool:
 
-        # if we can reach the end -> OOB, we found all words
-        dp[-1] = True
-
-        for i in reversed(range(len(s))):
-            for word in wordDict:
-                if i + len(word) <= len(s) and s[i : (i + len(word))] == word:
-                    dp[i] = dp[i + len(word)]
-                if dp[i]:
-                    break
+        dp = {len(s): True}
+        def backtrack(i):
+            if i in dp:
+                return dp[i]
+            
+            canReach = False
+            for word in words:
+                if i + len(word) <= len(s) and s[i : i + len(word)] == word:
+                    if backtrack(i + len(word)):
+                        canReach = True
+            
+            dp[i] = canReach
+            return dp[i]
         
+        backtrack(0)
         return dp[0]
 
-
+            
         

@@ -1,20 +1,27 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-        dp = {len(s) : 1}
-        
+        dp = [0] * len(s)
+
         def backtrack(i):
-            if i in dp:
+            
+            if i == len(s):
+                return 1
+            
+            if dp[i]:
                 return dp[i]
-
-            if s[i] == "0":
-                return 0
             
-            res = backtrack(i + 1)
+            ways = 0
+            for j in range(i, len(s)):
+                if j - i + 1 > 2:
+                    continue
+                
+                ch = s[i : j + 1]
 
-            # take two
-            if i + 1 < len(s) and int(s[i:i+2]) <= 26:
-                res += backtrack(i + 2)
+                if ch[0] != "0" and 1 <= int(ch) <= 26:
+                    ways += backtrack(j + 1)
             
-            dp[i] = res
-            return dp[i]        
-        return backtrack(0)
+            dp[i] = ways
+            return dp[i]
+        
+        backtrack(0)
+        return dp[0]

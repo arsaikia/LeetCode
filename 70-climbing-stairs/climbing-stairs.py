@@ -1,21 +1,8 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        dp = {}
+        dp = [1, 2] + ([0] * (n - 2))
 
-        def dfs(i):
-
-            if i == n:
-                return 1
-            
-            if i > n:
-                return 0
-            
-            if i in dp:
-                return dp[i]
-            
-            res = 0
-            res += dfs(i + 1) + dfs(i + 2)
-            dp[i] = res
-            return dp[i]
+        for i in range(2, n):
+            dp[i] = dp[i - 1] + dp[i - 2]
         
-        return dfs(0)
+        return dp[n - 1]

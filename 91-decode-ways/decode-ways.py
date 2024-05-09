@@ -1,27 +1,22 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
-        dp = [0] * len(s)
+        dp = {len(s) : 1}
 
-        def backtrack(i):
-            
-            if i == len(s):
-                return 1
-            
-            if dp[i]:
-                return dp[i]
-            
-            ways = 0
-            for j in range(i, len(s)):
-                if j - i + 1 > 2:
-                    continue
-                
-                ch = s[i : j + 1]
+        for i in reversed(range(len(s))):
+            if s[i]== "0":
+                dp[i] = 0
+            else:
+                dp[i] = dp[i + 1]
 
-                if ch[0] != "0" and 1 <= int(ch) <= 26:
-                    ways += backtrack(j + 1)
+                if (
+                    i + 1 < len(s) and
+                    (s[i] == "1" or (
+                        s[i] == "2" and
+                        s[i + 1] in "0123456"
+                    ))
+                ):
+                    dp[i] += dp[i + 2]
+
+        return dp[0]  
             
-            dp[i] = ways
-            return dp[i]
         
-        backtrack(0)
-        return dp[0]

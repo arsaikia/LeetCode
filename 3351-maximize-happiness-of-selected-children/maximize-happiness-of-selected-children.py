@@ -1,12 +1,12 @@
+import heapq
 class Solution:
     def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
-        happiness.sort(key = lambda x : -x)
-
-        res = 0
-        i = 0
+        maxHeap = [-val for val in happiness]
+        heapq.heapify(maxHeap)
+        res, i = 0, 0
 
         while i < k:
-            val = happiness[i] - i
+            val = (-1 * heapq.heappop(maxHeap)) - i
             if val <= 0:
                 break
 

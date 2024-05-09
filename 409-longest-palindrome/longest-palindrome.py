@@ -1,7 +1,6 @@
 class Solution:
     def longestPalindrome(self, s: str) -> int:
         counts = collections.Counter(s)
-
         hasOdd = False
         res = 0
 

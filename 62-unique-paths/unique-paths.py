@@ -1,28 +1,17 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        ROWS, COLS = m, n
-        visited = set()
-        cache = {}
+        ROWS, COLS = m + 1, n + 1
+        prevRow = [0] * COLS
+        currRow = [0] * COLS
 
-        def backtrack(row, col):
-            nonlocal ROWS, COLS, visited
+        # base case
+        currRow[COLS - 1] = 1
 
-            if (row, col) in cache:
-                return cache[(row, col)]
-
-            if row not in range(ROWS) or col not in range(COLS) or (row, col) in visited:
-                return 0
-            
-            if row == ROWS - 1 and col == COLS - 1:
-                return 1
-            
-            visited.add( (row, col) )
-            ways = 0
-            ways += backtrack(row + 1, col) + backtrack(row, col + 1)
-            visited.remove( (row, col) )
-            
-            cache[(row, col)] = ways
-            return cache[(row, col)]
+        for __ in reversed(range(ROWS - 1)):
+            for col in reversed(range(COLS - 1)):
+                currRow[col] = currRow[col + 1] + prevRow[col]
+            prevRow = currRow
+            currRow = [0] * COLS
         
-        return backtrack(0, 0)
+        return prevRow[0]
         

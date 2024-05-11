@@ -1,13 +1,25 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        ways = [0 for i in range(amount + 1)]
-        ways[0] = 1
+        dp = {}
 
-        for denom in coins:
-            for value in range(1, amount + 1):
-                if denom <= value:
-                    ways[value] += ways[value - denom]
+        @cache
+        def backtrack(idx, total):
+
+            if total == amount:
+                return 1
+            
+            if idx >= len(coins) or total > amount:
+                return 0
+            
+            ways = 0
+
+            # take current coin -> use same coin again
+            ways += backtrack(idx, total + coins[idx])
+
+            # skip curr coin
+            ways += backtrack(idx + 1, total)
+
+            return ways
         
-        return ways[amount]
-
+        return backtrack(0, 0)
         

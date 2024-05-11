@@ -1,24 +1,28 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        dp = {} # (idx, isBuying)
 
-        def getProfit(idx, isBuying):
-
+        dp = {}
+        def backtrack(idx, canBuy):
             if idx >= len(prices):
                 return 0
-            
-            if (idx, isBuying) in dp:
-                return dp[(idx, isBuying)]
-            
-            if isBuying:
-                buy = getProfit(idx + 1, not isBuying) - prices[idx]
-                cooldown = getProfit(idx + 1, isBuying)
-                dp[(idx, isBuying)] = max(buy, cooldown)
-            else:
-                sell = getProfit(idx + 2, not isBuying) + prices[idx]
-                cooldown = getProfit(idx + 1, isBuying)
-                dp[(idx, isBuying)] = max(sell, cooldown)
-            
-            return dp[(idx, isBuying)]
 
-        return getProfit(0, True)
+            if (idx, canBuy) in dp:
+                return dp[(idx, canBuy)]
+
+            hold = backtrack(idx + 1, canBuy)
+
+            # can buy
+            if canBuy:
+                buy = backtrack(idx + 1, not canBuy) - prices[idx]
+                dp[(idx, canBuy)] = max(buy, hold)
+
+            # can't buy
+            else:
+                sell = backtrack(idx + 2, not canBuy) + prices[idx]
+                dp[(idx, canBuy)] = max(sell, hold)
+            
+            return dp[(idx, canBuy)]
+        
+        return backtrack(0, True)
+
+        

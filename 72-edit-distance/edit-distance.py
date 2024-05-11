@@ -1,24 +1,37 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        cache = [ [float("inf") for __ in range(len(word1) + 1)] for __ in range(len(word2) + 1) ]
 
-        # fill up bottom row in 2D cache
-        for col in range(len(cache[0])):
-            row = len(cache) - 1
-            cache[row][col] = (len(cache[0])- 1) - col
-
-        # fill up right col in 2D cache
-        for row in range(len(cache)):
-            col = len(cache[0]) - 1
-            cache[row][col] = (len(cache) - 1) - row
+        dp = {(len(word1), len(word2)): 0}
         
-        # traverse cache and fill up bottom up
-        for row in reversed(range(len(cache) - 1)):
-            for col in reversed(range(len(cache[0]) - 1)):
-                if word2[row] == word1[col]:
-                    cache[row][col] = cache[row + 1][col + 1]
-                else:
-                    cache[row][col] = 1 + min(cache[row + 1][col], cache[row + 1][col + 1], cache[row][col + 1])
-        
-        return cache[0][0]
+        def dfs(i, j):
 
+            if (i, j) in dp:
+                return dp[(i, j)]
+
+            if i == len(word1) and j == len(word2):
+                return 0
+            
+            elif i == len(word1):
+                return len(word2) - j
+            
+            elif j == len(word2):
+                return len(word1) - i
+            
+            val = float("inf")
+
+            if word1[i] == word2[j]:
+                val = min(val, dfs(i + 1, j + 1))
+            else:
+                insert = 1 + dfs(i, j + 1)
+                replace = 1 + dfs(i + 1, j + 1)
+                delete = 1 + dfs(i + 1, j)
+                val = min(val, insert, replace, delete)
+            
+            dp[(i, j)] = val
+            return val
+        
+        return dfs(0, 0)
+            
+
+
+        

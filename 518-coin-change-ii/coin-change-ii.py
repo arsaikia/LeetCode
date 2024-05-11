@@ -1,28 +1,22 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        dp = {}
+        one = [0] * (amount + 1)
+        two = [0] * (amount + 1)
+        one[0], two[0] = 1, 1
 
-        def backtrack(idx, need):
+        for i in range(len(coins)):
+            coin = coins[i]
 
-            if need == 0:
-                return 1
-            
-            if idx >= len(coins) or need < 0:
-                return 0
-            
-            if (idx, need) in dp:
-                return dp[(idx, need)]
-            
-            ways = 0
-
-            # take current coin -> use same coin again
-            ways += backtrack(idx, need - coins[idx])
-
-            # skip curr coin
-            ways += backtrack(idx + 1, need)
-
-            dp[(idx, need)] = ways
-            return ways
+            for j in range(1, len(one)):
+                left = 0
+                if j >= coin:
+                    left = two[j - coin]
+                
+                top = one[j]
+                two[j] = left + top
+            one = two
+            two = [0] * (amount + 1)
+            two[0] = 1
         
-        return backtrack(0, amount)
-        
+        return one[-1]
+

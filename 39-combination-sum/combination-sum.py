@@ -3,7 +3,7 @@ class Solution:
         res = []
         subset = []
 
-        def backtrack(i, total, subset):
+        def backtrack(i, total):
 
             if total == target:
                 res.append(subset[:])
@@ -11,16 +11,14 @@ class Solution:
             
             if total > target or i >= len(candidates):
                 return
-
-            # include current num
-            subset.append(candidates[i])
-            backtrack(i, total + candidates[i], subset)
-
-            # skip current
-            subset.pop()
-            backtrack(i + 1, total, subset)
-                    
-        backtrack(0, 0, subset)
+            
+            for idx in range(i, len(candidates)):
+                # consider curr element
+                subset.append(candidates[idx])
+                backtrack(idx, total + candidates[idx])
+                # skip curr element
+                subset.pop()
+        
+        backtrack(0, 0)
         return res
-                
         

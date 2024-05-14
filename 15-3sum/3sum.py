@@ -3,27 +3,31 @@ class Solution:
         nums.sort()
         triplets = set()
 
-        for idx, num in enumerate(nums):
-            # Skip positive integers
-            if num > 0:
+        for i in range(len(nums)):
+
+            # if we are at a positive number,
+            # starting a triplet from here will never result in 0
+            if nums[i] > 0:
                 break
-
-            if idx > 0 and num == nums[idx - 1]:
+            
+            # if we are at a number which is same as its left, 
+            # then we have already found a triplet with this number
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
-
-            l, r = idx + 1, len(nums) - 1
+            
+            l, r = i + 1, len(nums) - 1
             while l < r:
-                left, right = nums[l], nums[r]
-                val = num + left + right
-                if val > 0:
-                    r -= 1
-                elif val < 0:
+                total = nums[i] + nums[l] + nums[r]
+                if total == 0:
+                    triplets.add(tuple(sorted([nums[i], nums[l], nums[r]])))
                     l += 1
+                    r -= 1
+                elif total > 0:
+                    r -= 1
                 else:
-                    triplet = tuple(sorted([num, left, right]))
-                    triplets.add(triplet)
                     l += 1
-                    r -= 1
         
         return list(triplets)
+
+
         

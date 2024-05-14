@@ -4,23 +4,18 @@ class Solution:
         l = 0
         res = []
 
-
         for r in range(len(nums)):
-
-            while q and q[-1] < nums[r]:
+            
+            while q and nums[r] > nums[q[-1]]:
                 q.pop()
-            
-            q.append(nums[r])
+            q.append(r)
 
-            if r + 1 >= k:
-                res.append(q[0])
-                if nums[l] == q[0]:
-                    q.popleft()
-                l += 1
-                
+            if l > q[0]:
+                q.popleft()
             
-                
-                
-        
+            if r + 1 >= k:
+                res.append(nums[q[0]])
+                l += 1
+
         return res
             

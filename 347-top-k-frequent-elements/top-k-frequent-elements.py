@@ -10,10 +10,11 @@ class Solution:
         res = []
 
         for bucket in reversed(buckets):
+
+            if k == 0:
+                break
             
             for num in bucket:
-                if k == 0:
-                    break
                 res.append(num)
                 k -= 1
         

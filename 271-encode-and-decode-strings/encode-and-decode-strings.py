@@ -17,17 +17,20 @@ class Codec:
         """
         res = []
         i = 0
+
         while i < len(s):
             j = i
-            while s[j] != "#" and j < len(s):
+            while j < len(s) and s[j] != "#":
                 j += 1
             wordSize = int(s[i : j])
-            word = s[j + 1 : j + 1 + wordSize]
+            # word starts at j + 1
+            word = s[j + 1 : j + wordSize + 1]
             res.append(word)
-            i = j + 1 + wordSize
-        
-        return res
 
+            i = j + wordSize + 1
+
+        return res
+        
 
         
 

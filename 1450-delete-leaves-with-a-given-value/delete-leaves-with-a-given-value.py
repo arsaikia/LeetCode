@@ -15,7 +15,7 @@ class Solution:
             node.left = dfs(node.left, val)
             node.right = dfs(node.right, val)
 
-            if not node.left and not node.right and node.val == val:
+            if node.left == node.right and node.val == val:
                 return None
 
             return node

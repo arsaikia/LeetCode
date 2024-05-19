@@ -1,7 +1,7 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         count = Counter(tasks)
-        maxHeap = [ -1 * c for c in count.values() ]
+        maxHeap = [ -1 * val for val in count.values() ]
         heapq.heapify(maxHeap)
 
         time = 0
@@ -11,12 +11,14 @@ class Solution:
             time += 1
 
             if maxHeap:
-                c = 1 + heapq.heappop(maxHeap)
-                if c:
-                    q.append( [c, time + n ] )
+                val = heapq.heappop(maxHeap)
+                nextCount = 1 + val
+                if nextCount:
+                    q.append( [nextCount, time + n] )  # when this item will be available next
                 
             if q and q[0][1] == time:
-                heapq.heappush(maxHeap, q.popleft()[0])
+                c, t = q.popleft()
+                heapq.heappush(maxHeap, c )
 
         return time 
         

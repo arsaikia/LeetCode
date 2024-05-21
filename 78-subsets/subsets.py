@@ -3,17 +3,14 @@ class Solution:
         res, subset = [], []
 
         def backtrack(i, subset):
-            if i == len(nums):
-                res.append(subset[:])
-                return
+            res.append(subset[:])
             
-            # include curr num
-            subset.append(nums[i])
-            backtrack(i + 1, subset)
-
-            # skip curr num
-            subset.pop()
-            backtrack(i + 1, subset)
+            for j in range(i, len(nums)):
+                # include curr num
+                subset.append(nums[j])
+                backtrack(j + 1, subset)
+                # skip curr num
+                subset.pop()
         
         backtrack(0, subset)
         return res

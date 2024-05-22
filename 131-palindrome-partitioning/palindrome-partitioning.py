@@ -3,13 +3,17 @@ class Solution:
 
         res = []
 
-        @cache
+        cache = {}
         def isPali(s, i, j):
+            if (i, j) in cache:
+                return cache[(i, j)] 
             while i < j:
                 if s[i] != s[j]:
+                    cache[(i, j)] = False
                     return False
                 i += 1
                 j -= 1
+            cache[(i, j)] = True
             return True
         
         def backtrack(i, subset):

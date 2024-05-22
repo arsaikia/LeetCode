@@ -1,6 +1,8 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
 
+        res = []
+
         def isPali(s, i, j):
             while i < j:
                 if s[i] != s[j]:
@@ -9,24 +11,17 @@ class Solution:
                 j -= 1
             return True
         
-        current = []
-        ans = []
-
-        def backtracking(i, j):
-            if i == len(s) or j > len(s) :
-                if len(''.join(current)) == len(s):
-                    ans.append(current[:])
+        def backtrack(i, subset):
+            if i >= len(s):
+                res.append(subset[:])
                 return
-
-            if isPali(s, i, j - 1):
-                current.append(s[i:j])
-                backtracking(j, j + 1)
-                current.pop()
-
-            backtracking(i,  j + 1)
-
-        backtracking(0, 1)
-        return ans
-        
-
             
+            for j in range(i, len(s)):
+                if isPali(s, i, j):
+                    subset.append(s[i : j + 1])
+                    backtrack(j + 1, subset)
+                    subset.pop()
+        
+        backtrack(0, [])
+        return res
+        

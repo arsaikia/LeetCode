@@ -15,7 +15,7 @@ class Solution:
                 diffPrefix[diff] = idx
             
             if zeros == ones:
-                res = zeros + ones
+                res = idx + 1
             else:
                 res = max(res, idx - diffPrefix[diff])
         

@@ -7,7 +7,7 @@ class Solution:
 
         for r in range(len(s)):
             chars[s[r]] += 1
-            maxFreq = max(maxFreq, chars[s[r]])
+            maxFreq = max(chars.values())
 
             if (r - l + 1) - maxFreq > k:
                 chars[s[l]] -= 1
@@ -16,7 +16,3 @@ class Solution:
             longest = max(longest, (r - l + 1))
         
         return longest
-            
-
-
-

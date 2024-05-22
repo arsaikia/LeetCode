@@ -3,6 +3,7 @@ class Solution:
 
         res = []
 
+        @cache
         def isPali(s, i, j):
             while i < j:
                 if s[i] != s[j]:

@@ -10,7 +10,7 @@ class Solution:
                 continue
             
             # negative destroys positive from stack
-            while stack and stack[-1] > 0 and stack[-1] < abs(a):
+            while stack and stack[-1] < abs(a):
                 stack.pop()
 
             # negative desroyed everything

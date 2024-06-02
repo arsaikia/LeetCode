@@ -17,7 +17,8 @@ class Solution:
             
         left, right = 0, 0
 
-        for c in reversed(s):
+        for i in reversed(range(len(s))):
+            c = s[i]
             if c == "(":
                 left += 1
             elif c == ")":

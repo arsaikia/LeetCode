@@ -5,6 +5,7 @@ class Solution:
 
         while l <= r:
             # if the array from [l : r] is already sorted we can return the leftmost element
+            # Important to check from l : r and not l : m
             if nums[l] <= nums[r]:
                 return nums[l]
             

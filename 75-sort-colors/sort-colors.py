@@ -16,11 +16,12 @@ class Solution:
                 i += 1
             
             # found 2
-            elif nums[i] == 1:
-                i += 1
-            else:
+            elif nums[i] == 2:
                 nums[r], nums[i] = nums[i], nums[r]
                 r -= 1
+            else:
+                i += 1
+            
         
         return nums
             

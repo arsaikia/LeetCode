@@ -6,5 +6,5 @@ class Solution:
             if ch == "*":
                 stack.pop()
             else:
-                stack.append(ch)
+                stack.append(ch) 
         return "".join(stack)
